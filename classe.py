@@ -40,14 +40,6 @@ class PileCarte:
         return random.shuffle(self.cartes)
 
     # AUTRES FONCTIONS
-    def calcul_montant(self):
-        montant = 0
-
-        for carte in self.cartes:
-            montant += carte.valeur
-
-        return montant
-
     def __len__(self):
         return len(self.cartes)
 
@@ -98,6 +90,14 @@ class Banque:
         self.argent = 0
         self.score = 0
 
+    def calcul_score(self):
+        score = 0
+
+        for carte in self.pile_cartes:
+            score += carte.valeur
+
+        self.score = score
+
 
 class Joueur:
 
@@ -112,7 +112,6 @@ class Joueur:
         self.argent = argent
 
     def miser(self, message):
-
         mise = fonction.int_input(message)
 
         while mise < 5 or mise > self.argent:
@@ -121,3 +120,10 @@ class Joueur:
         self.mise = mise
         self.argent = self.argent - self.mise
 
+    def calcul_score(self):
+        score = 0
+
+        for carte in self.pile_cartes:
+            score += carte.valeur
+
+        self.score = score
