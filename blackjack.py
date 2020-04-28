@@ -26,20 +26,20 @@ while play.lower() != "q":
     print(f"JOUEUR : {joueur.pile_cartes.show_pile()}")
 
     # on calcule le montant actuel des cartes
-    montant_joueur = joueur.pile_cartes.calcul_montant()
-    blackjack_joueur = fonction.is_it_a_blackjack(montant_joueur)
-    print(montant_joueur, blackjack_joueur, "\n")
+    joueur.calcul_score()
+    blackjack_joueur = fonction.is_it_a_blackjack(joueur.score)
+    print(joueur.score, blackjack_joueur, "\n")
 
     # tour du joueur (carte ou rester)
     continuer = input("Voulez-vous une nouvelle carte ou arrêter ? R pour arrêter :\n")
 
-    while continuer.lower() != "r" or montant_joueur < 17:
+    while continuer.lower() != "r" or joueur.score < 17:
         fonction.distribuer(jeu_de_cartes, joueur)
         fonction.remove_carte_distribuee(jeu_de_cartes)
-        montant_joueur = joueur.pile_cartes.calcul_montant()
-        print(joueur.pile_cartes.show_pile(), montant_joueur)
+        joueur.calcul_score()
+        print(joueur.pile_cartes.show_pile(), joueur.score)
 
-        if montant_joueur > 21:
+        if joueur.score > 21:
             continuer = "r"
         else:
             continuer = input("Voulez-vous une nouvelle carte ou arrêter ? R pour arrêter :\n")
@@ -47,18 +47,18 @@ while play.lower() != "q":
     # tour du croupier
     print(f"BANQUE : {banque.pile_cartes.show_pile()}")
     print(f"JOUEUR : {joueur.pile_cartes.show_pile()}")
-    montant_banque = banque.pile_cartes.calcul_montant()
-    blackjack_banque = fonction.is_it_a_blackjack(montant_banque)
-    print(montant_banque, blackjack_banque, "\n")
+    banque.calcul_score()
+    blackjack_banque = fonction.is_it_a_blackjack(banque.score)
+    print(banque.score, blackjack_banque, "\n")
 
-    while montant_banque < 17:
+    while banque.score < 17:
         fonction.distribuer(jeu_de_cartes, banque)
         fonction.remove_carte_distribuee(jeu_de_cartes)
-        montant_banque = banque.pile_cartes.calcul_montant()
-        print(f"BANQUE : {banque.pile_cartes.show_pile()}, score de {montant_banque}")
+        banque.calcul_score()
+        print(f"BANQUE : {banque.pile_cartes.show_pile()}, score de {banque.score}")
 
     # vérification du gagnant
-    result = fonction.winner(blackjack_joueur, blackjack_banque, montant_joueur, montant_banque)
+    result = fonction.winner(blackjack_joueur, blackjack_banque, joueur.score, banque.score)
 
     # répartition des gains
     if result == "T":  # TIE
@@ -68,9 +68,9 @@ while play.lower() != "q":
     elif result == "WB":  # WIN par BLACKJACK
         joueur.argent += (joueur.mise*2.5)
 
-    print(f"Vous avez désormais {joueur.argent}.\n")
+    print(f"Vous avez désormais {joueur.argent}€.\n")
 
-    # on jette les jeux dans la défausse
+    # on défausse les cartes
     joueur.pile_cartes.reset()
     banque.pile_cartes.reset()
 
