@@ -61,7 +61,7 @@ class Carte:
         self.symbole = symbole
 
         if valeur == 1:
-            self.valeur = 0
+            self.valeur = 11
             self.name = "As"
         elif valeur == 11:
             self.valeur = 10
