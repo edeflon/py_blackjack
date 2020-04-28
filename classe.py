@@ -115,8 +115,8 @@ class Joueur:
 
         mise = fonction.int_input(message)
 
-        while mise < 5:
-            mise = fonction.int_input("Votre mise doit être supérieure ou égale à 5€ : ")
+        while mise < 5 or mise > self.argent:
+            mise = fonction.int_input(f"Il vous reste {self.argent}€. Votre mise doit être comprise entre 5 et {self.argent}€ : ")
 
         self.mise = mise
         self.argent = self.argent - self.mise
