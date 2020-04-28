@@ -8,18 +8,38 @@ class PileCarte:
         self.name = name
         self.cartes = []
 
+    # CREATE
     def build(self):
         for nombre_de_deck in range(6):
             for symbole in ["Coeur", "Carreau", "Pique", "Trèfle"]:
                 for value in range(1, 14):
                     self.cartes.append(Carte(symbole, value))
 
+    # READ
+    def __getitem__(self, item):
+        return self.cartes[item]
+
+    def show_pile(self):
+        return f"{self.cartes}"
+
+    def show_first_card(self):
+        return f"{self.cartes[0]}"
+
+    # UPDATE
     def add_card(self, card):
         return self.cartes.append(card)
+
+    def remove_card(self, card_id):
+        return self.cartes.pop(card_id)
+
+    # DELETE
+    def reset(self):
+        self.cartes = []
 
     def shuffle(self):
         return random.shuffle(self.cartes)
 
+    # AUTRES FONCTIONS
     def calcul_montant(self):
         montant = 0
 
@@ -27,18 +47,6 @@ class PileCarte:
             montant += carte.valeur
 
         return montant
-
-    def is_it_a_blackjack(self, montant):
-        if montant == 21:
-            return True
-
-        return False
-
-    def reset(self):
-        self.cartes = []
-
-    def __getitem__(self, item):
-        return self.cartes[item]
 
     def __len__(self):
         return len(self.cartes)
@@ -53,7 +61,7 @@ class Carte:
         self.symbole = symbole
 
         if valeur == 1:
-            self.valeur = 11
+            self.valeur = 0
             self.name = "As"
         elif valeur == 11:
             self.valeur = 10
@@ -66,7 +74,7 @@ class Carte:
             self.name = "Roi"
         else:
             self.valeur = valeur
-            self.name = valeur
+            self.name = str(valeur)
 
     def as_value(self):
         value = input("Souhaitez-vous que la valeur de votre As soit 1 ou 11 ?")
@@ -101,7 +109,7 @@ class Joueur:
         while argent < 5:
             argent = fonction.int_input("Veuillez entrer un montant supérieur à 5€ : ")
 
-        self.argent = argent # VOIR POUR GERER LES ERREURS EN CAS DE STR + INPUT DE L'ARGENT DU JOUEUR
+        self.argent = argent
 
     def miser(self, message):
 
