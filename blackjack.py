@@ -1,4 +1,3 @@
-import constante
 import classe
 import fonction
 
@@ -71,7 +70,7 @@ while play.lower() != "q":
 
     print(f"Vous avez désormais {joueur.argent}.\n")
 
-    # réinitialisation des jeux
+    # on jette les jeux dans la défausse
     joueur.pile_cartes.reset()
     banque.pile_cartes.reset()
 
@@ -79,4 +78,4 @@ while play.lower() != "q":
         print("Vous n'avez plus assez d'argent pour participer. A bientôt")
         play = "q"
     else:
-        play = input("Voulez-vous continuer à jouer au Blackjack ? Q pour quitter. ")
+        play = input("Voulez-vous continuer à jouer au Blackjack ? Q pour quitter. \n")
