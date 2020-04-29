@@ -2,7 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BLACKJACK ONLINE</title>
+</head>
+<body>
+    <div>
+        <h1>BLACKJACK ONLINE</h1>
+        <span>Pour jouer, entrez le montant que vous possédez pour vos mises.</span>
+        <form method="POST" action="/play_game/{{ argent }}">
+            <label for="argent">Votre argent (en euros) : </label>
+            <input type="text" name="argent" id="argent" value="100"/>
+            <button>Jouer</button>
+        </form>
+    </div>
     <!--
         BOUTON AU TOP GAUCHE "START NEW GAME", "QUIT"
 
@@ -14,8 +25,5 @@
         BOUTONS : CARTE, RESTER (puis SPLIT, DOUBLE, ASSURANCE)
         BOUTONS POUR MISER : 5, 10, 50, 100, 500
     -->
-</head>
-<body>
-
 </body>
 </html>
