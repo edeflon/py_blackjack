@@ -8,9 +8,9 @@
     <div>
         <h1>BLACKJACK ONLINE</h1>
         <span>Pour jouer, entrez le montant que vous possédez pour vos mises.</span>
-        <form method="POST" action="/play_game/{{ argent }}">
+        <form method="POST" action="/start_game">
             <label for="argent">Votre argent (en euros) : </label>
-            <input type="text" name="argent" id="argent" value="100"/>
+            <input type="number" name="argent" id="argent" min="5" value="5"/>
             <button>Jouer</button>
         </form>
     </div>

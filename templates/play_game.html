@@ -3,11 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>BLACKJACK ONLINE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 </head>
 <body>
+<div>
+    <h2>BANQUE</h2>
+    {% if banque.timetoplay == 0 %}
+    <span id="cartes_banque">{{ banque.pile_cartes.show_first_card() }}</span>
+    {% elif banque.timetoplay == 1 %}
+    <span id="cartes_banque">{{ banque.pile_cartes }}</span>
+    <br/>
+    <span id="score_banque">{{ banque.score }}</span>
+    {% endif %}
+</div>
+<div>
+    <h2>JOUEUR</h2>
+    <span id="cartes_joueur">{{ joueur.pile_cartes }}</span>
+    <br/>
+    <span id="score_joueur">{{ joueur.score }}</span>
+</div>
+<br/>
+<div>
+    {% if joueur.timetoplay == 1 %}
+    {% if joueur.score < 22 %}
+    <a href="/carte">Carte</a>
+    <a href="/rester">Rester</a>
+    <!-- <button name="doubler">Doubler</button>
+    <button name="split">Split</button> -->
+    {% endif %}
+    {% endif %}
+</div>
+<!--
+<br/>
+<div>
+    <button name="assurance">Assurance</button>
+    <button name="assurance">Pas d'assurance</button>
+</div>
+-->
+<hr/>
+<div>
+    <div>Mise en jeu : {{ joueur.mise }}€</div>
+    <div>Solde restant : {{ joueur.argent }}€</div>
+</div>
+<br/>
+<div>
+    {% if joueur.timetoplay == 0 %}
+    <span>Miser :</span>
+    {% for mise in mises %}
+        {% if joueur.argent >= mise %}
+            <a class="btn" href="/miser/{{ mise }}">{{ mise }}€</a>
+        {% endif %}
+    {% endfor %}
+    {% if joueur.mise != 0 %}
     <div>
-        <h2>Bienvenue joueur</h2>
-        <span id="argent">{{ argent }}</span>
+        <a class="btn" href="/lancer_manche">Jouer</a>
     </div>
+    {% endif %}
+    {% elif joueur.timetoplay == 2 %}
+    {% if joueur.argent > 4 %}
+    <div>
+        <a class="btn" href="/rejouer">Rejouer</a>
+        <a class="btn" href="/">S'arrêter</a>
+    </div>
+    {% else %}
+    <span>PERDU</span>
+    <div>
+        <a href="/">Retour à la page d'accueil</a>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+
+<br/>
+<hr/>
+
+<div>
+    <h5>Règles</h5>
+    <div>"Une partie de blackjack en ligne se joue entre la banque, tenue par le croupier, et les joueurs.</div>
+    <div>Pour chaque joueur, le but est simple : obtenir un total de points supérieur à celui du croupier, sans jamais dépasser 21."</div>
+</div>
+
 </body>
 </html>

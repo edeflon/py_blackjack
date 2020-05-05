@@ -28,8 +28,8 @@ def remove_carte_distribuee(jeu):
     jeu.remove_card(0)
 
 
-def is_it_a_blackjack(montant):
-    if montant == 21:
+def is_it_a_blackjack(score):
+    if score == 21:
         return True
 
     return False
@@ -39,11 +39,15 @@ def winner(blackjack_joueur, blackjack_banque, montant_joueur, montant_banque):
     if blackjack_joueur or blackjack_banque:
         return blackjack_result(blackjack_joueur, blackjack_banque, montant_banque)
 
-    if montant_joueur > 21 or 22 > montant_banque > montant_joueur:
+    if montant_joueur > 21:
         return "L"
+    elif montant_banque > 21:
+        return "W"
     elif montant_joueur == montant_banque:
         return "T"
-    elif montant_banque > 21 or 22 > montant_joueur > montant_banque:
+    elif montant_banque > montant_joueur:
+        return "L"
+    elif montant_joueur > montant_banque:
         return "W"
 
 

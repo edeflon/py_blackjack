@@ -23,7 +23,10 @@ class PileCarte:
         return f"{self.cartes}"
 
     def show_first_card(self):
-        return f"{self.cartes[0]}"
+        if self.cartes:
+            return f"{self.cartes[0]}"
+        else:
+            return f"{self.cartes}"
 
     # UPDATE
     def add_card(self, card):
@@ -89,6 +92,8 @@ class Banque:
         self.pile_cartes = PileCarte("pile_banque")
         self.argent = 0
         self.score = 0
+        self.blackjack = False
+        self.timetoplay = 0
 
     def calcul_score(self):
         score = 0
@@ -101,24 +106,17 @@ class Banque:
 
 class Joueur:
 
-    def __init__(self, argent):
+    def __init__(self):
         self.pile_cartes = PileCarte("pile_joueur")
         self.mise = 0
         self.score = 0
+        self.blackjack = False
+        self.timetoplay = 0
+        self.argent = 0
 
-        while argent < 5:
-            argent = fonction.int_input("Veuillez entrer un montant supérieur à 5€ : ")
-
-        self.argent = argent
-
-    def miser(self, message):
-        mise = fonction.int_input(message)
-
-        while mise < 5 or mise > self.argent:
-            mise = fonction.int_input(f"Il vous reste {self.argent}€. Votre mise doit être comprise entre 5 et {self.argent}€ : ")
-
-        self.mise = mise
-        self.argent = self.argent - self.mise
+    def miser(self, mise):
+        self.mise += mise
+        self.argent = self.argent - mise
 
     def calcul_score(self):
         score = 0
