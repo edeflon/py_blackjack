@@ -23,17 +23,27 @@
     <br/>
     <span id="score_joueur">{{ joueur.score }}</span>
 </div>
+{% if joueur.ace %}
+<br/>
+<div>
+    <a class="btn" href="/as1">As vaut 1</a>
+    <a class="btn" href="/as11">As vaut 11</a>
+</div>
+{% else %}
 <br/>
 <div>
     {% if joueur.timetoplay == 1 %}
     {% if joueur.score < 22 %}
-    <a href="/carte">Carte</a>
-    <a href="/rester">Rester</a>
-    <!-- <button name="doubler">Doubler</button>
-    <button name="split">Split</button> -->
+    <a class="btn" href="/carte">Carte</a>
+    <a class="btn" href="/rester">Rester</a>
+    <!--
+    <button name="doubler">Doubler</button>
+    <button name="split">Split</button>
+    -->
     {% endif %}
     {% endif %}
 </div>
+{% endif %}
 <!--
 <br/>
 <div>
