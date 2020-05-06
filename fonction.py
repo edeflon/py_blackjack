@@ -1,14 +1,3 @@
-import classe
-
-def int_input(message): # on vérifie que le contenu donné est bien un int
-    number = input(message)
-
-    while not number.isdigit():
-        number = input("Merci d'entrer un nombre valide : ")
-
-    return int(number)
-
-
 def distribuer_debut_partie(jeu, banque, *joueurs):
     list_joueur = [joueur for joueur in joueurs]
 
@@ -20,8 +9,38 @@ def distribuer_debut_partie(jeu, banque, *joueurs):
             remove_carte_distribuee(jeu)
 
 
-def distribuer(jeu, joueur):
-    joueur.pile_cartes.add_card(jeu[0])
+def distribuer(jeu, player):
+    carte = is_it_an_ace(jeu, player)
+    player.pile_cartes.add_card(carte)
+
+
+def is_it_an_ace(jeu, player):
+    if jeu[0].valeur == 11 and player.name != "banque":
+        return valeur_ace_joueur(jeu[0], player)
+    elif jeu[0].valeur == 11 and player.name == "banque":
+        return valeur_ace_banque(jeu[0], player)
+    else:
+        return jeu[0]
+
+
+def valeur_ace_joueur(carte, joueur):
+    if not joueur.blackjack:
+        joueur.ace = True
+
+    return carte
+
+
+def valeur_ace_banque(carte, banque):
+    if banque.blackjack:
+        return carte
+    else:
+        banque.calcul_score()
+        banque.score += carte.valeur
+        if banque.score > 21:
+            carte.valeur = 1
+            return carte
+
+    return carte
 
 
 def remove_carte_distribuee(jeu):

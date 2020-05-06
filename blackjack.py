@@ -60,6 +60,19 @@ def lancer_manche():
     return redirect('/play_game')
 
 
+@app.route('/as1')
+def ace_1():
+    for carte in joueur.pile_cartes:
+        if carte.valeur == 11:
+            carte.valeur = 1
+    calcul_score(joueur)
+
+
+@app.route('/as11')
+def ace_11():
+    return 11
+
+
 @app.route('/carte')
 def carte():
     jouer(joueur)
