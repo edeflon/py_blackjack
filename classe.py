@@ -1,6 +1,5 @@
 import random
 
-import fonction
 
 class PileCarte:
 
@@ -71,14 +70,6 @@ class Carte:
             self.valeur = valeur
             self.name = str(valeur)
 
-    def as_value(self):
-        value = input("Souhaitez-vous que la valeur de votre As soit 1 ou 11 ?")
-
-        while value != "1" or value != "11":
-            value = input("Veuillez entrer 1 ou 11.")
-
-        return int(value)
-
     def __repr__(self):
         return self.__str__()
 
@@ -89,6 +80,7 @@ class Carte:
 class Banque:
 
     def __init__(self):
+        self.name = "banque"
         self.pile_cartes = PileCarte("pile_banque")
         self.argent = 0
         self.score = 0
@@ -107,12 +99,14 @@ class Banque:
 class Joueur:
 
     def __init__(self):
+        self.name = "joueur"
         self.pile_cartes = PileCarte("pile_joueur")
         self.mise = 0
         self.score = 0
         self.blackjack = False
         self.timetoplay = 0
         self.argent = 0
+        self.ace = False
 
     def miser(self, mise):
         self.mise += mise
